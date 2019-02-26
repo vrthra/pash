@@ -21,6 +21,7 @@ pash
 * [Usage](#usage)
 * [FAQ](#faq)
     * [Where are passwords stored?](#where-are-passwords-stored)
+    * [How can I use my public key?](#how-can-i-use-my-public-key)
 * [TODO](#todo)
 
 <!-- vim-markdown-toc -->
@@ -67,6 +68,10 @@ OPTIONS
 
 The passwords are store in GPG encrypted files located at `${XDG_DATA_HOME:=$HOME/.local/share}/pash}`.
 
+### How can I use my public key?
+
+Set the environment variable `PASH_PUB_KEY` to the public key you'd like
+to use.
 
 ## TODO
 

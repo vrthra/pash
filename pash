@@ -20,7 +20,7 @@ pw_add() {
     [[ $password ]] ||
         die "Failed to generate a password."
 
-    "${gpg[0]}" -co "$1.gpg" <<< "$password"
+    "${gpg[0]}" "${gpg_flags[@]:--c}" -o "$1.gpg" <<< "$password"
 }
 
 pw_del() {
@@ -31,7 +31,7 @@ pw_del() {
 }
 
 pw_show() {
-    read -r password < <("${gpg[0]}" -dq "$1.gpg")
+    read -r password < <("${gpg[0]}" "${gpg_flags[@]::${#gpg_flags[@]}-1}" -dq "$1.gpg")
 }
 
 pw_list() {
@@ -116,6 +116,9 @@ main() {
 
     mapfile -t gpg < <(type -p gpg gpg2) && [[ ! -x ${gpg[0]} ]] &&
         die "GPG not found."
+
+    [[ $PASH_PUB_KEY ]] &&
+        gpg_flags=(--batch --trust-model always -r "$PASH_PUB_KEY" -e)
 
     mkdir -p "${pass_dir:=${XDG_DATA_HOME:=$HOME/.local/share}/pash}" ||
         die "Couldn't create password directory."
