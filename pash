@@ -94,6 +94,7 @@ pash 1.0.0 - simple password manager.
 => [c]opy [name] - Copy entry to the clipboard.
 => [d]el  [name] - Delete a password entry.
 => [l]ist        - List all entries.
+=> [t]ree        - Tree all entries.
 => [s]how [name] - Show password for an entry.
 
 Using a key pair: export PASH_KEYID=XXXXXXXX
