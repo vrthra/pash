@@ -51,6 +51,16 @@ pw_copy() {
 
 pw_list() {
     shopt -s globstar nullglob
+    for pwrd in **; do
+	if [[ ! $pwrd  == *.gpg ]]; then
+           continue
+        fi
+        echo $pwrd
+    done
+}
+
+pw_tree() {
+    shopt -s globstar nullglob
 
     printf '%s\n' "pash"
 
@@ -132,6 +142,7 @@ main() {
         d*) pw_del  "$2" ;;
         s*) pw_show "$2" ;;
         l*) pw_list ;;
+        t*) pw_tree ;;
         *)  usage
     esac
 }
