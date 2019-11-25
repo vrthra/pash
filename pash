@@ -78,6 +78,10 @@ pw_tree() {
     printf '└%s\b┘\n' "${nest//\//──┴}"
 }
 
+pw_xpand() {
+    "${gpg[0]}" -dq $1
+}
+
 yn() {
     read -rn 1 -p "$1 [y/n]: "
     printf '\n'
@@ -97,6 +101,7 @@ pash 1.0.0 - simple password manager.
 => [l]ist        - List all entries.
 => [t]ree        - Tree all entries.
 => [s]how [name] - Show password for an entry.
+=> [x]pand [file] - Show contents of file
 
 Using a key pair: export PASH_KEYID=XXXXXXXX
 Password length:  export PASH_LENGTH=50
@@ -143,6 +148,7 @@ main() {
         c*) pw_copy "$2" ;;
         d*) pw_del  "$2" ;;
         s*) pw_show "$2" ;;
+        x*) pw_xpand "$HOME/$2" ;;
         l*) pw_list ;;
         t*) pw_tree ;;
         *)  usage
