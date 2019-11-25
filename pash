@@ -33,10 +33,11 @@ pw_del() {
 }
 
 pw_show() {
-    read -r pass < <("${gpg[0]}" -dq "$1.gpg")
-
-    [[ ${FUNCNAME[1]} != pw_copy ]] &&
-        printf '%s\n' "$pass"
+    if [[ ${FUNCNAME[1]} != pw_copy ]]; then
+       "${gpg[0]}" -dq "$1.gpg"
+    else
+       read -r pass < <("${gpg[0]}" -dq "$1.gpg")
+    fi
 }
 
 pw_copy() {
